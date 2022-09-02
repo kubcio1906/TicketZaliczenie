@@ -1,0 +1,44 @@
+<div class="show-info">
+  <div class="show-info--image">
+    <img [src]="event.show.url" alt="" draggable="false" />
+  </div>
+  <div class="show-info--details">
+    <h1>{{ event.show.name }}</h1>
+    <p>
+      {{ event.show.description }}
+    </p>
+  </div>
+</div>
+<h2 class="header">
+  <mat-icon class="material-icons-outlined">confirmation_number</mat-icon>
+  Tickets
+</h2>
+<div class="ticket-list">
+  <div class="ticket-element" *ngFor="let ticket of event.tickets">
+    <span class="show-name">
+      {{ event.show.name }}
+    </span>
+    <div class="ticket-place">
+      <span class="ticket-place--city">
+        {{ ticket.place.city }}
+      </span>
+      <span class="ticket-place--name">
+        {{ ticket.place.name }}
+      </span>
+    </div>
+    <span class="ticket-date">
+      <span class="ticket-date--date">
+        {{ ticket.date | date: "dd MMMM yyyy" }}
+      </span>
+      <mat-divider vertical></mat-divider>
+      <span class="ticket-date--time">{{ ticket.date | date: "HH:mm" }}</span>
+    </span>
+    <span class="ticket-price">
+      {{ ticket.price }}
+    </span>
+    <button class="button-buy" mat-flat-button color="accent">
+      <mat-icon class="material-icons-outlined">shopping_cart</mat-icon>
+      Buy ticket
+    </button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+}
+
+.mat-toolbar-row {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}

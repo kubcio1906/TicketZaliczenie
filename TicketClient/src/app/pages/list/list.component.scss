@@ -1,0 +1,30 @@
+@use "@angular/material" as mat;
+
+:host {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px 12px;
+  user-select: none;
+}
+
+.mat-card-content p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  color: gray;
+  margin: 0;
+}
+
+.mat-card {
+  @include mat.elevation-transition();
+  @include mat.elevation(2);
+
+  @media (hover: hover) {
+    &:hover {
+      @include mat.elevation(8);
+      // cursor: pointer;
+    }
+  }
+}

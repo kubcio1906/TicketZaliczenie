@@ -1,0 +1,24 @@
+.username {
+  font-size: 0.75rem;
+}
+
+.main {
+  padding: 20px 50px;
+
+  @media screen and (max-width: 40em) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main,
+.header-row {
+  width: min(var(--max-width), 100%);
+  margin: auto;
+}

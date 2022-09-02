@@ -1,0 +1,62 @@
+<form [formGroup]="register" (ngSubmit)="submit()">
+  <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+    <mat-label>Username</mat-label>
+    <input
+      #usernameInput
+      matInput
+      formControlName="username"
+      required
+      maxlength="15"
+      autocomplete="username"
+    />
+    <mat-hint align="end">{{ usernameInput.value?.length || 0 }}/15</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required autocomplete="email" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      formControlName="password"
+      [type]="passwordHide ? 'password' : 'text'"
+      required
+      autocomplete="new-password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="passwordHide = !passwordHide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="passwordHide"
+    >
+      <mat-icon>
+        {{ passwordHide ? "visibility_off" : "visibility" }}
+      </mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Repeat password</mat-label>
+    <input
+      matInput
+      formControlName="repeatPassword"
+      [type]="repeatPasswordHide ? 'password' : 'text'"
+      required
+      autocomplete="new-password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="repeatPasswordHide = !repeatPasswordHide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="repeatPasswordHide"
+    >
+      <mat-icon>
+        {{ repeatPasswordHide ? "visibility_off" : "visibility" }}
+      </mat-icon>
+    </button>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary">SIGN UP</button>
+</form>

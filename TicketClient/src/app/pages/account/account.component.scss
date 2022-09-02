@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: min(400px, 100%);
+  margin: auto;
+}
+
+.navigation {
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,21 @@
+<nav mat-tab-nav-bar mat-stretch-tabs class="navigation">
+  <a
+    #loginLink="routerLinkActive"
+    mat-tab-link
+    routerLink="login"
+    routerLinkActive
+    [active]="loginLink.isActive"
+  >
+    LOGIN
+  </a>
+  <a
+    #registerLink="routerLinkActive"
+    mat-tab-link
+    routerLink="register"
+    routerLinkActive
+    [active]="registerLink.isActive"
+  >
+    REGISTER
+  </a>
+</nav>
+<router-outlet></router-outlet>

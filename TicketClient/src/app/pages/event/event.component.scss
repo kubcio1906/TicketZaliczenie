@@ -1,0 +1,123 @@
+.ticket-element {
+  display: grid;
+
+  border: 1px solid black;
+  padding: 12px;
+
+  @media screen and (min-width: 40em) {
+    padding: 24px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.ticket-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.ticket-place {
+  grid-area: place;
+  display: flex;
+  flex-direction: column;
+  line-height: 150%;
+
+  &--city {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &--name {
+    font-size: 12px;
+  }
+}
+
+.ticket-date {
+  grid-area: date;
+  display: flex;
+  gap: 4px;
+  font-size: 16px;
+
+  &--date {
+    font-weight: bold;
+  }
+
+  &--time {
+    //
+  }
+
+  .mat-divider {
+    border-right-width: 2px;
+    border-right-color: black;
+  }
+}
+
+.ticket-price {
+  grid-area: price;
+  font-size: 16px;
+
+  &::after {
+    content: "USD";
+  }
+}
+.show-name {
+  grid-area: name;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.show-info {
+  display: flex;
+  flex-direction: column;
+
+  &--image img {
+    width: 100%;
+  }
+  &--details h1 {
+    font-size: 24px;
+    line-height: 150%;
+    margin-bottom: 24px;
+  }
+
+  &--details p {
+    line-height: 150%;
+    font-size: 12px;
+    margin-bottom: 24px;
+  }
+
+  @media screen and (min-width: 40em) {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 24px;
+    margin-bottom: 57px;
+
+    &--image {
+      flex: 0.5;
+    }
+    &--details {
+      flex: 1;
+    }
+
+    &--details p {
+      font-size: 16px;
+    }
+
+    &--details h1 {
+      font-size: 56px;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-buy {
+  grid-area: buy;
+  font-size: 1rem;
+}
