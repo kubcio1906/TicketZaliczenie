@@ -1,0 +1,73 @@
+version: "3.8"
+
+services:
+  # ticketproxy:
+  #   container_name: ticket-proxy
+  #   image: nginx:1.21-alpine
+  #   volumes:
+  #     - ./TicketProxy/dev/nginx.conf:/etc/nginx/nginx.conf
+  #   ports:
+  #     - "7000:80"
+  # depends_on:
+  # - "ticketclient"
+
+  # ticketclient:
+  #   container_name: ticket-client
+  #   build:
+  #     context: ./TicketClient
+  #     target: development-stage
+  #   volumes:
+  #     - ./TicketClient:/app
+  #     - /app/node_modules
+  #   expose:
+  #     - "80"
+  #   command: npm run docker-start
+  #   restart: always
+  #   depends_on:
+  #     - "ticketapi"
+
+  # ticketapi:
+  #   container_name: ticket-api
+  #   build:
+  #     context: ./TicketApi
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__DefaultConnection=Server=ticketdb,1433;Initial Catalog=TicketDb;User ID=sa;Password=49R8MXw#49c6wT9Q8!
+  #   restart: always
+  #   depends_on:
+  #     - "rabbitmq"
+  #     - "ticketdb"
+
+  # ticketsender:
+  #   container_name: ticket-sender
+  #   build:
+  #     context: ./TicketSender
+  #     target: development-stage
+  #   command: npm run docker-start
+  #   volumes:
+  #     - ./TicketSender:/app
+  #     - /app/node_modules
+  #   restart: always
+  #   depends_on:
+  #     - "rabbitmq"
+
+  ticketdb: # login SA:49R8MXw#49c6wT9Q8!
+    container_name: ticket-database
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "49R8MXw#49c6wT9Q8!"
+      MSSQL_PID: "Express"
+    restart: always
+    ports:
+      - "1433:1433"
+
+  # rabbitmq: # login guest:guest
+  #   container_name: ticket-rabbitmq
+  #   image: rabbitmq:3-management
+  #   restart: always
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+# Server=localhost, 1433;Initial Catalog=TicketDb;User ID=sa;Password=49R8MXw#49c6wT9Q8!
+# Server=localhost, 1433;User ID=sa;Password=49R8MXw#49c6wT9Q8!
