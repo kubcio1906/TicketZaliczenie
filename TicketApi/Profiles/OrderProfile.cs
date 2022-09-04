@@ -11,6 +11,8 @@ namespace TicketApi.Profiles
                 dest => dest.Id,
                 opt => opt.MapFrom(src => $"{src.OrderId}")
             );
+
+            CreateMap<PlaceOrderDto, Order>();
         }
     }
 }

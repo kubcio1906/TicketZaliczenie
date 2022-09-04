@@ -7,11 +7,6 @@ namespace TicketApi.Models
         public int TicketId { get; set; }
         public int UserId { get; set; }
 
-        public virtual Ticket Ticket { get; set; }
-    }
-
-    public class OrderDto
-    {
-        public string Id { get; set; }
+        public virtual TicketOption TicketOption { get; set; }
     }
 }

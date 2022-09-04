@@ -1,12 +1,12 @@
-<mat-card *ngFor="let show of shows$ | async; trackBy: trackById">
-  <img mat-card-image [src]="show.imageSrc" alt="" draggable="false" />
+<mat-card *ngFor="let event of events$ | async; trackBy: trackEventById">
+  <img mat-card-image [src]="event.image" alt="" draggable="false" />
   <mat-card-content>
     <p>
-      {{ show.description }}
+      {{ event.description }}
     </p>
   </mat-card-content>
   <mat-card-actions align="end">
-    <a mat-button [routerLink]="['../event', show.id, 'details']">
+    <a mat-button [routerLink]="['../event', event.id, 'details']">
       <mat-icon class="material-icons-outlined">library_books</mat-icon>
       Read more
     </a>

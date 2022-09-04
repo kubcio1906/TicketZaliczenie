@@ -38,18 +38,18 @@ services:
   #     - "rabbitmq"
   #     - "ticketdb"
 
-  # ticketsender:
-  #   container_name: ticket-sender
-  #   build:
-  #     context: ./TicketSender
-  #     target: development-stage
-  #   command: npm run docker-start
-  #   volumes:
-  #     - ./TicketSender:/app
-  #     - /app/node_modules
-  #   restart: always
-  #   depends_on:
-  #     - "rabbitmq"
+  ticketsender:
+    container_name: ticket-sender
+    build:
+      context: ./TicketSender
+      target: development-stage
+    command: npm run docker-start
+    volumes:
+      - ./TicketSender:/app
+      - /app/node_modules
+    restart: always
+    depends_on:
+      - "rabbitmq"
 
   ticketdb: # login SA:49R8MXw#49c6wT9Q8!
     container_name: ticket-database
@@ -62,12 +62,12 @@ services:
     ports:
       - "1433:1433"
 
-  # rabbitmq: # login guest:guest
-  #   container_name: ticket-rabbitmq
-  #   image: rabbitmq:3-management
-  #   restart: always
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
+  rabbitmq: # login guest:guest
+    container_name: ticket-rabbitmq
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 # Server=localhost, 1433;Initial Catalog=TicketDb;User ID=sa;Password=49R8MXw#49c6wT9Q8!
 # Server=localhost, 1433;User ID=sa;Password=49R8MXw#49c6wT9Q8!

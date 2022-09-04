@@ -11,6 +11,11 @@ namespace TicketApi.Profiles
                 dest => dest.Id,
                 opt => opt.MapFrom(src => $"{src.EventId}")
             );
+
+            CreateMap<Event, EventShortDto>().ForMember(
+                dest => dest.Id,
+                opt => opt.MapFrom(src => $"{src.EventId}")
+            );
         }
     }
 }

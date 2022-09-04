@@ -11,7 +11,7 @@ namespace TicketApi.Configurations
             builder.HasKey(e => e.EventId);
             builder.Property(e => e.EventId).UseIdentityColumn();
 
-            builder.HasMany(e => e.Tickets).WithOne(t => t.Event).HasForeignKey(t => t.TicketId);
+            builder.HasMany(e => e.TicketOptions).WithOne(t => t.Event).HasForeignKey(t => t.TicketOptionId);
 
             builder.ToTable("Event");
         }

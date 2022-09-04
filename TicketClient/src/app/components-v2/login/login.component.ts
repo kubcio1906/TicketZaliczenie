@@ -10,25 +10,46 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { take, takeUntil, tap } from 'rxjs/operators';
+import { LoginBody } from 'src/app/models/login-body';
+import { AuthService } from 'src/app/services/auth.service';
+import { BaseComponent } from '../base-component.directive';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class Login {
+export class Login extends BaseComponent {
   passwordHide = true;
   readonly login: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
 
+  constructor(private readonly _authService: AuthService) {
+    super();
+  }
+
   submit(): void {
     if (!this.login.valid) {
       return;
     }
 
-    console.log('hello');
+    this._authService
+      .login$(<LoginBody>{
+        email: this.login.get('email')?.value,
+        password: this.login.get('password')?.value,
+      })
+      .pipe(
+        take(1),
+        takeUntil(this._destroyed),
+        tap(() => {
+          this._resetFormGroup(this.login);
+          this.passwordHide = true;
+        })
+      )
+      .subscribe();
   }
 }
 

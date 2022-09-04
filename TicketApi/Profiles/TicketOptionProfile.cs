@@ -3,13 +3,13 @@ using TicketApi.Models;
 
 namespace TicketApi.Profiles
 {
-    public class TicketProfile : Profile
+    public class TicketOptionProfile : Profile
     {
-        public TicketProfile()
+        public TicketOptionProfile()
         {
-            CreateMap<Ticket, TicketDto>().ForMember(
+            CreateMap<TicketOption, TicketOptionDto>().ForMember(
                 dest => dest.Id,
-                opt => opt.MapFrom(src => $"{src.TicketId}")
+                opt => opt.MapFrom(src => $"{src.TicketOptionId}")
             ).ForMember(
                 dest => dest.Price,
                 opt => opt.MapFrom(src => $"{src.Price}")

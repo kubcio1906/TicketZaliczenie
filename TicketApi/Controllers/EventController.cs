@@ -10,25 +10,32 @@ namespace TicketApi.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        public readonly IMapper _mapper;
+        private readonly ApplicationContext _applicationContext;
+        private readonly IMapper _mapper;
 
-        public EventController(ApplicationDbContext context, IMapper mapper)
+        public EventController(ApplicationContext applicationContext, IMapper mapper)
         {
-            _context = context;
+            _applicationContext = applicationContext;
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public List<EventDto> GetAll()
+        [HttpGet("get-all")]
+        public async Task<ActionResult<List<EventShortDto>>> GetAll()
         {
-            return _mapper.Map<List<Event>, List<EventDto>>(_context.Events.Include(e => e.Tickets).ToList());
+            var eventEntities = await _applicationContext.Events.AsNoTracking()
+                .ToListAsync();
+
+            return Ok(_mapper.Map<List<Event>, List<EventShortDto>>(eventEntities));
         }
 
-        // [HttpGet]
-        // public List<EventDto> Get(string id)
-        // {
-        //     return _mapper.Map<List<Event>, List<EventDto>>(_context.Events.ToList());
-        // }
+        [HttpGet("get")]
+        public async Task<ActionResult<EventDto>> Get([FromQuery] int id)
+        {
+            var eventEntity = await _applicationContext.Events.AsNoTracking()
+                .Include(e => e.TicketOptions)
+                .FirstOrDefaultAsync(e => e.EventId == id);
+
+            return Ok(_mapper.Map<Event, EventDto>(eventEntity));
+        }
     }
 }

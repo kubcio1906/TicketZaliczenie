@@ -3,29 +3,29 @@ import { Component, NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Show } from 'src/app/models/show.interface';
-import { ApiService } from 'src/app/services/api.service';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { EventShort } from 'src/app/models/event-short';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class List {
-  readonly shows$: Observable<Array<Show>> = this._apiService.getShows();
+export class ListPage {
+  readonly events$: Observable<Array<EventShort>> = this._apiService.events$();
 
   constructor(private readonly _apiService: ApiService) {}
 
-  trackById(index: number, show: Show): string {
-    return show.id;
+  trackEventById(index: number, event: EventShort): string {
+    return event.id;
   }
 }
 
-const routes: Routes = [{ path: '', component: List, pathMatch: 'full' }];
+const routes: Routes = [{ path: '', component: ListPage, pathMatch: 'full' }];
 
 @NgModule({
   imports: [
@@ -35,6 +35,6 @@ const routes: Routes = [{ path: '', component: List, pathMatch: 'full' }];
     MatButtonModule,
     MatIconModule,
   ],
-  declarations: [List],
+  declarations: [ListPage],
 })
 export class ListModule {}
