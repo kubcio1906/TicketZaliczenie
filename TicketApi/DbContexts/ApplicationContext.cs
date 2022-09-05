@@ -40,7 +40,7 @@ namespace TicketApi.DbContexts
             );
 
             DateTime time = DateTime.ParseExact("2008-06-11T16:11:20.0904778Z", "o", CultureInfo.InvariantCulture, DateTimeStyles.None);
-            builder.Entity<TicketOption>().HasData(new TicketOption { EventId = 1, TicketOptionId = 1, City = "Kasztan", Place = "Kiełbasa", Price = 149, TakePlace = time });
+            builder.Entity<TicketOption>().HasData(new TicketOption { EventId = 1, TicketOptionId = 1, City = "Katowice", Place = "Spodek", Price = 149, TakePlace = time });
 
             base.OnModelCreating(builder);
         }

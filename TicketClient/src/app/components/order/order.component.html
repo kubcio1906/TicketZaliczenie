@@ -1,8 +1,0 @@
-<ng-container *ngIf="detailedShow$ | async as detailedShow">
-  <ng-container *ngIf="detailedShow; else error">
-    <span>Show does exist!</span>
-  </ng-container>
-</ng-container>
-<ng-template #error>
-  <span>Show does not exist!</span>
-</ng-template>

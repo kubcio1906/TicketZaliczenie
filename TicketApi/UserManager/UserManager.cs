@@ -100,6 +100,16 @@ namespace TicketApi.UserManager
 
             return refreshToken;
         }
+
+        public IQueryable<User> FindByIdAsync(int id)
+        {
+            return _applicationContext.Users.Where(u => u.UserId == id);
+        }
+
+        public IQueryable<User> FindByRefreshTokenAsync(string token)
+        {
+            return _applicationContext.Users.Where(u => u.RefreshToken == token);
+        }
     }
 
 }

@@ -16,7 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListPage {
-  readonly events$: Observable<Array<EventShort>> = this._apiService.events$();
+  readonly events$: Observable<Array<EventShort>> = this._apiService.events();
 
   constructor(private readonly _apiService: ApiService) {}
 

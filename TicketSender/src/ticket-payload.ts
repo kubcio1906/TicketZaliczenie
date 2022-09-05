@@ -1,4 +1,6 @@
 export interface TicketPayload {
-  name: string;
-  surname: string;
+  orderId: string;
+  createdAt: string;
+  ticketId: string;
+  userId: string;
 }

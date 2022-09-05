@@ -4,10 +4,17 @@
       {{ title }}
     </a>
     <span style="flex: 1"></span>
-    <span *ngIf="auth" class="username">Hello, {{ username }}</span>
-    <a mat-icon-button (click)="authAction()">
-      <mat-icon>{{ auth ? "logout" : "login" }}</mat-icon>
-    </a>
+    <ng-container *ngIf="authenticated | async as auth; else loginView">
+      <span *ngIf="auth" class="username">Hello, {{ userName | async }}</span>
+      <a mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </a>
+    </ng-container>
+    <ng-template #loginView>
+      <a mat-icon-button (click)="login()">
+        <mat-icon>login</mat-icon>
+      </a>
+    </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
 

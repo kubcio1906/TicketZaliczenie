@@ -16,7 +16,7 @@ export class App {
 
       console.log("Connected!");
 
-      await this._channel.assertQueue(this._queueName, { durable: true });
+      await this._channel.assertQueue(this._queueName, { durable: false });
       console.log("Queue checked!");
 
       this._channel.consume(this._queueName, (message: ConsumeMessage) => {

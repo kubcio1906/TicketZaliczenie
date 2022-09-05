@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketApi.Models;
@@ -60,20 +62,39 @@ namespace TicketApi.Controllers
         [HttpPost("refresh-token")]
         public async Task<ActionResult<string>> RefreshToken()
         {
-            // var refreshToken = Request.Cookies["refreshToken"];
+            var cookieRefreshToken = Request.Cookies["refreshToken"];
 
-            //wyciagniecie usera z encji
+            var userEntity = await _userManager.FindByRefreshTokenAsync(cookieRefreshToken).FirstOrDefaultAsync();
 
-            // if (!user.RefreshToken.Equals(refreshToken))
-            // {
-            //     return Unauthorized("Invalid Refresh Token.");
-            // }
+            if (!userEntity.RefreshToken.Equals(cookieRefreshToken))
+            {
+                return Unauthorized("Invalid Refresh Token.");
+            }
 
-            // var token = _userManager.GenerateJwtToken(userEntity);
+            var token = _userManager.GenerateJwtToken(userEntity);
+            var refreshToken = _userManager.GenerateRefreshToken();
+            SetRefreshTokenCookie(refreshToken);
 
-            // SetRefreshTokenCookie(refreshToken);
+            userEntity.RefreshToken = refreshToken.Token;
+            userEntity.RefreshTokenCreated = refreshToken.Created;
+            userEntity.RefreshTokenExpires = refreshToken.Expires;
 
-            return Ok("");
+            await _userManager.SaveChangesAsync();
+
+            return Ok(token);
+        }
+
+        [HttpGet("get-username"), Authorize]
+        public async Task<ActionResult<string>> GetUsername()
+        {
+            var userId = this.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value;
+            var userEntity = await _userManager.FindByIdAsync(Int32.Parse(userId)).AsNoTracking().FirstOrDefaultAsync();
+            if (userEntity == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            return Ok(userEntity.UserName);
         }
 
         [HttpPost("user-register")]

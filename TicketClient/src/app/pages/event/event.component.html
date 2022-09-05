@@ -46,15 +46,28 @@
         <span class="ticket-price">
           {{ ticketOption.price }}
         </span>
-        <button
-          class="button-buy"
-          mat-flat-button
-          color="accent"
-          (click)="placeOrder(ticketOption.id)"
-        >
-          <mat-icon class="material-icons-outlined">shopping_cart</mat-icon>
-          Buy ticket
-        </button>
+        <ng-container *ngIf="authenticated | async; else pleaseLogIn">
+          <button
+            class="button-buy"
+            mat-flat-button
+            color="accent"
+            (click)="placeOrder(ticketOption.id)"
+          >
+            <mat-icon class="material-icons-outlined">shopping_cart</mat-icon>
+            Buy ticket
+          </button>
+        </ng-container>
+        <ng-template #pleaseLogIn>
+          <button
+            class="button-buy"
+            mat-flat-button
+            color="accent"
+            (click)="login()"
+          >
+            <!-- <mat-icon class="material-icons-outlined">shopping_cart</mat-icon> -->
+            Login
+          </button>
+        </ng-template>
       </div>
     </ng-container>
     <ng-template #noTicketOptions> Tickets are unavailabe.. </ng-template>

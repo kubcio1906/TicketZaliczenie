@@ -18,7 +18,7 @@ export class ApiService {
     this._httpClientBypass = new HttpClient(_httpBackend);
   }
 
-  createUser$<TOut extends void>(body: {
+  createUser<TOut extends void>(body: {
     userName: string;
     email: string;
     password: string;
@@ -29,15 +29,15 @@ export class ApiService {
     );
   }
 
-  refreshToken$(body: LoginBody): Observable<string> {
+  refreshToken(): Observable<string> {
     return this._httpClientBypass.post(
       `${environment.api}/auth/refresh-token`,
-      body,
+      {},
       { responseType: 'text' }
     );
   }
 
-  login$(body: LoginBody): Observable<string> {
+  login(body: LoginBody): Observable<string> {
     return this._httpClientBypass.post(
       `${environment.api}/auth/user-login`,
       body,
@@ -45,19 +45,25 @@ export class ApiService {
     );
   }
 
-  events$(): Observable<EventShort[]> {
+  events(): Observable<EventShort[]> {
     return this._httpClientBypass.get<EventShort[]>(
       `${environment.api}/event/get-all`
     );
   }
 
-  event$(id: string): Observable<Event> {
+  event(id: string): Observable<Event> {
     return this._httpClientBypass.get<Event>(
       `${environment.api}/event/get?id=${id}`
     );
   }
 
-  buy$<TOut extends string>(body: BuyBody): Observable<TOut> {
+  buy<TOut extends string>(body: BuyBody): Observable<TOut> {
     return this._httpClient.post<TOut>(`${environment.api}/order/buy`, body);
+  }
+
+  getUserName(): Observable<string> {
+    return this._httpClient.get(`${environment.api}/auth/get-username`, {
+      responseType: 'text',
+    });
   }
 }

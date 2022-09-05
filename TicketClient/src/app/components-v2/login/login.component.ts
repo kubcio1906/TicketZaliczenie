@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import { take, takeUntil, tap } from 'rxjs/operators';
 import { LoginBody } from 'src/app/models/login-body';
 import { AuthService } from 'src/app/services/auth.service';
@@ -27,7 +28,10 @@ export class Login extends BaseComponent {
     password: new FormControl('', Validators.required),
   });
 
-  constructor(private readonly _authService: AuthService) {
+  constructor(
+    private readonly _authService: AuthService,
+    private readonly _router: Router
+  ) {
     super();
   }
 
@@ -37,7 +41,7 @@ export class Login extends BaseComponent {
     }
 
     this._authService
-      .login$(<LoginBody>{
+      .login(<LoginBody>{
         email: this.login.get('email')?.value,
         password: this.login.get('password')?.value,
       })
@@ -47,6 +51,7 @@ export class Login extends BaseComponent {
         tap(() => {
           this._resetFormGroup(this.login);
           this.passwordHide = true;
+          this._router.navigate(['/list']);
         })
       )
       .subscribe();

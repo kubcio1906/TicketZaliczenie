@@ -56,7 +56,7 @@ export class Register extends BaseComponent {
     }
 
     this._apiService
-      .createUser$({
+      .createUser({
         userName: this.register.get('username')?.value,
         email: this.register.get('email')?.value,
         password: this.register.get('password')?.value,
